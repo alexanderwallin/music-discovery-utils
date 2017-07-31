@@ -2,15 +2,10 @@
   "name": "music-discovery-utils",
   "version": "1.0.0",
   "description": "A set of tools to help discovering, sharing and moving music",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --progress"
   },
-  "keywords": [
-    "music",
-    "discovery",
-    "utility"
-  ],
+  "keywords": ["music", "discovery", "utility"],
   "author": "Alexander Wallin <office@alexanderwallin.com> (http://alexanderwallin.com)",
   "license": "UNLICENSED",
   "dependencies": {
@@ -24,6 +19,7 @@
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-prettier": "^2.3.0",
     "eslint-import-resolver-webpack": "^0.8.3",
+    "prettier": "^1.5.3",
     "webpack-dev-server": "^2.6.1"
   }
 }
