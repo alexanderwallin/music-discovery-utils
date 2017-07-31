@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "latest",
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", "safari >= 7"]
+      }
+    }]
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    ["transform-react-jsx", { "pragma": "h" }]
+  ]
+}
