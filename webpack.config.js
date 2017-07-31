@@ -18,6 +18,7 @@ module.exports = {
   },
   resolve: {
     alias: {
+      react: 'preact-compat',
       src: path.join(__dirname, 'src'),
     },
   },
