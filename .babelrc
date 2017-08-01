@@ -8,6 +8,13 @@
     }]
   ],
   "plugins": [
+    ["module-resolver", {
+      "root": ["."],
+      "alias": {
+        "react": "preact-compat",
+        "src": "src"
+      }
+    }],
     "transform-class-properties",
     "transform-decorators-legacy",
     "transform-object-rest-spread",
