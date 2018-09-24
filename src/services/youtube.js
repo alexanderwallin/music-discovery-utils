@@ -8,19 +8,14 @@ const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3'
 const getQueryUrl = query =>
   `${YOUTUBE_API_URL}/search?q=${query}&key=${YOUTUBE_API_KEY}&part=snippet&type=video&maxResults=1`
 
-export const getYoutubeResult = query => {
-  return axios
-    .get(getQueryUrl(query))
-    .then(response => ({
-      query,
-      platform: Platform.YOUTUBE,
-      id:
-        response.data.items.length > 0
-          ? response.data.items[0].id.videoId
-          : null,
-    }))
-    .then(results => {
-      console.log({ results })
-      return results
-    })
+export default async function getYoutubeResult(query) {
+  const response = await axios.get(getQueryUrl(query))
+  const results = {
+    query,
+    platform: Platform.YOUTUBE,
+    id:
+      response.data.items.length > 0 ? response.data.items[0].id.videoId : null,
+  }
+
+  return results
 }
