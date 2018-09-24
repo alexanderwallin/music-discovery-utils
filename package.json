@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A set of tools to help discovering, sharing and moving music",
   "scripts": {
-    "dev": "webpack-dev-server --progress"
+    "dev": "webpack-dev-server --progress --mode development"
   },
   "keywords": [
     "music",
