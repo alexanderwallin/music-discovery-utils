@@ -1,3 +1,3 @@
-# music-discovery-utils
+# Verydisco
 
 🎷
