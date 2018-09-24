@@ -1,7 +1,6 @@
 {
   "presets": [
-    "latest",
-    ["env", {
+    ["@babel/preset-env", {
       "targets": {
         "browsers": ["last 2 versions", "safari >= 7"]
       }
@@ -16,8 +15,8 @@
       }
     }],
     "transform-class-properties",
-    "transform-decorators-legacy",
-    "transform-object-rest-spread",
-    ["transform-react-jsx", { "pragma": "h" }]
+    // "transform-object-rest-spread",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-transform-react-jsx", { "pragma": "h" }]
   ]
 }
