@@ -1,5 +1,29 @@
 import { h, Component } from 'preact'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+
+const HeaderContainer = styled.header`
+  padding: 16px 0 8px;
+`
+
+const Title = styled.div`
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: navy;
+`
+
+const NavigationLink = styled(Link)`
+  display: inline-block;
+  margin-right: 8px;
+  color: LightSteelBlue;
+  font-size: 14px;
+  line-height: 24px;
+  text-decoration: none;
+
+  &:hover {
+    color: navy;
+  }
+`
 
 /**
  * Header
@@ -7,14 +31,19 @@ import { Link } from 'react-router-dom'
 class Header extends Component {
   render() {
     return (
-      <header className="Header">
-        <div>Music Discovery Utils</div>
+      <HeaderContainer>
+        <Title>
+          <span role="img" aria-label="Disco dancer emoji">
+            🕺
+          </span>{' '}
+          Very disco
+        </Title>
 
         <nav>
-          <Link to="/">Home</Link>
-          <Link to="/link-lists">Link Lists</Link>
+          <NavigationLink to="/">Home</NavigationLink>
+          <NavigationLink to="/link-lists">Link Lists</NavigationLink>
         </nav>
-      </header>
+      </HeaderContainer>
     )
   }
 }

@@ -4,11 +4,16 @@ import styled from 'styled-components'
 
 import Header from 'src/components/Header.js'
 import LinkLists from 'src/components/LinkLists.js'
+import injectGlobalStyles from 'src/styles/injectGlobalStyles.js'
+
+injectGlobalStyles()
 
 const AppContainer = styled.div`
   width: 90%;
   max-width: 960px;
   margin: 0 auto;
+  font-size: 100%;
+  line-height: 1.5;
 `
 
 export default class App extends Component {
