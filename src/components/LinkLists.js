@@ -43,6 +43,13 @@ const Td = styled.td`
   vertical-align: top;
 `
 
+const EmptyColumn = styled(Td)`
+  padding: 32px;
+  border: none;
+  color: slategray;
+  text-align: center;
+`
+
 const TrackTitleCol = Td.extend`
   min-width: 240px;
 `
@@ -138,6 +145,14 @@ class LinkList extends Component {
               </thead>
 
               <tbody>
+                {results.length === 0 && (
+                  <tr>
+                    <EmptyColumn colSpan="3">
+                      No results to show just now
+                    </EmptyColumn>
+                  </tr>
+                )}
+
                 {results.map(result => {
                   return (
                     <tr key={result.query}>
