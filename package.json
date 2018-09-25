@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A set of tools to help discovering, sharing and moving music",
   "scripts": {
-    "dev": "webpack-dev-server --progress --mode development"
+    "dev": "webpack-dev-server --progress --mode development",
+    "heroku-postbuild": "webpack -p",
+    "start": "node server.js"
   },
   "keywords": [
     "music",
