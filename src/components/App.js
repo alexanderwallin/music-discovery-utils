@@ -16,16 +16,20 @@ const AppContainer = styled.div`
   line-height: 1.5;
 `
 
+const AppContent = styled.div`
+  padding-bottom: 40px;
+`
+
 export default class App extends Component {
   render() {
     return (
       <AppContainer>
         <Header />
 
-        <div>
+        <AppContent>
           <Route exact path="/" render={() => <p>🎷</p>} />
           <Route exact path="/link-lists" component={LinkLists} />
-        </div>
+        </AppContent>
       </AppContainer>
     )
   }

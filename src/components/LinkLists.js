@@ -10,9 +10,7 @@ import { Button, H1 } from 'src/styles/elements.js'
 import { getQueryType } from 'src/utils/query-types.js'
 
 const QuerySection = styled.section`
-  margin-bottom: 16px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid whitesmoke;
+  margin-bottom: 32px;
 `
 
 const QueryInput = styled.textarea`
@@ -29,7 +27,9 @@ const QueryInput = styled.textarea`
   line-height: 20px;
 `
 
-const TrackList = styled.table``
+const TrackList = styled.table`
+  width: 100%;
+`
 
 const Th = styled.th`
   padding: 8px 0;

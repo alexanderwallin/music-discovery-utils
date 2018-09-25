@@ -3,23 +3,31 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const HeaderContainer = styled.header`
+  display: flex;
+  align-items: flex-end;
   margin-bottom: 32px;
   padding: 16px 0 8px;
+  border-bottom: 1px solid whitesmoke;
 `
 
 const Title = styled.div`
-  margin-bottom: 8px;
+  margin-right: 56px;
   font-weight: bold;
   color: navy;
 `
 
+const Navigation = styled.nav`
+  display: flex;
+`
+
 const NavigationLink = styled(Link)`
-  display: inline-block;
-  margin-right: 8px;
+  display: block;
+  margin-right: 24px;
   color: slategray;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 24px;
   text-decoration: none;
+  text-transform: uppercase;
 
   &:hover {
     color: navy;
@@ -40,10 +48,10 @@ class Header extends Component {
           Verydisco
         </Title>
 
-        <nav>
+        <Navigation>
           <NavigationLink to="/">Home</NavigationLink>
           <NavigationLink to="/link-lists">Track pursuit</NavigationLink>
-        </nav>
+        </Navigation>
       </HeaderContainer>
     )
   }

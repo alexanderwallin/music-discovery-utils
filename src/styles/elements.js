@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
 export const H1 = styled.h1`
-  margin: 0 0 24px;
-  font-size: 32px;
-  font-weight: bold;
+  margin: 0 0 16px;
   color: navy;
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 32px;
 `
 
 export const UnstyledButton = styled.button`
