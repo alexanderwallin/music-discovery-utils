@@ -118,7 +118,7 @@ class LinkList extends Component {
         <QuerySection>
           <QueryInput
             rows="3"
-            placeholder="Paste titles or URLs here"
+            placeholder="Paste titles (preferably with artist name) or YouTube URLs here"
             value={query}
             onChange={evt => this.setState({ query: evt.target.value })}
           />
