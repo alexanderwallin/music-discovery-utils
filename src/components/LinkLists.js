@@ -5,6 +5,7 @@ import YouTube from 'react-youtube'
 import styled from 'styled-components'
 
 import { Platform, QueryType } from 'src/constants.js'
+import TrackStatusPicker from 'src/components/TrackStatusPicker.js'
 import getYoutubeResult from 'src/services/youtube.js'
 import { Button, H1 } from 'src/styles/elements.js'
 import { getQueryType } from 'src/utils/query-types.js'
@@ -141,6 +142,7 @@ class LinkList extends Component {
                   <Th>Track</Th>
                   <Th>YouTube</Th>
                   <Th>Purchase</Th>
+                  <Th>Status</Th>
                 </tr>
               </thead>
 
@@ -198,6 +200,10 @@ class LinkList extends Component {
                         >
                           Beatport
                         </PurchaseLink>
+                      </Td>
+
+                      <Td>
+                        <TrackStatusPicker trackId={result.id} />
                       </Td>
                     </tr>
                   )
