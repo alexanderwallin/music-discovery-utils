@@ -2,7 +2,10 @@ import axios from 'axios'
 
 import { Platform } from 'src/constants.js'
 
-const YOUTUBE_API_KEY = 'AIzaSyCt4PxBhWb9mT6js7-bxK6kF5Gl45fV1fY'
+/**
+ * https://console.developers.google.com/apis/credentials?folder=&organizationId=&project=pro-equinox-215518
+ */
+const YOUTUBE_API_KEY = 'AIzaSyALoG2lI4IbZwrBoQlldpy29ZOILw-49aQ'
 const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3'
 
 const getQueryUrl = query =>

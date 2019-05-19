@@ -10,6 +10,7 @@ import { Platform, QueryType } from 'src/constants.js'
 import { getQueryType } from 'src/utils.js'
 import TrackStatusPicker from 'src/components/TrackStatusPicker.js'
 import { setResults } from 'src/redux/actions.js'
+import getSpotifyTrack from 'src/services/spotify.js'
 import getYoutubeResult from 'src/services/youtube.js'
 import { Button, H1 } from 'src/styles/elements.js'
 
@@ -155,18 +156,16 @@ class LinkList extends Component {
 
     const queries = query.split('\n').filter(x => x)
     const results = await Promise.all(
-      queries.map(x => {
+      queries.map(async x => {
         const type = getQueryType(x)
+        let youtubeQueryString = x
 
-        if (type === QueryType.FREE_TEXT) {
-          return getYoutubeResult(x)
+        if (type === QueryType.SPOTIFY_URL) {
+          const track = await getSpotifyTrack(x)
+          youtubeQueryString = `${track.artists[0].name} - ${track.name}`
         }
 
-        return {
-          query: x,
-          playform: null,
-          id: null,
-        }
+        return getYoutubeResult(youtubeQueryString)
       })
     )
 
