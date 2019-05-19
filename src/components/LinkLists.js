@@ -7,11 +7,11 @@ import YouTube from 'react-youtube'
 import styled from 'styled-components'
 
 import { Platform, QueryType } from 'src/constants.js'
+import { getQueryType } from 'src/utils.js'
 import TrackStatusPicker from 'src/components/TrackStatusPicker.js'
 import { setResults } from 'src/redux/actions.js'
 import getYoutubeResult from 'src/services/youtube.js'
 import { Button, H1 } from 'src/styles/elements.js'
-import { getQueryType } from 'src/utils/query-types.js'
 
 const QuerySection = styled.section`
   margin-bottom: 32px;
