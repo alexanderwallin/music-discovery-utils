@@ -1,11 +1,14 @@
 /* global window */
 import { h, Component } from 'preact'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import { autobind } from 'core-decorators'
 import YouTube from 'react-youtube'
 import styled from 'styled-components'
 
 import { Platform, QueryType } from 'src/constants.js'
 import TrackStatusPicker from 'src/components/TrackStatusPicker.js'
+import { setResults } from 'src/redux/actions.js'
 import getYoutubeResult from 'src/services/youtube.js'
 import { Button, H1 } from 'src/styles/elements.js'
 import { getQueryType } from 'src/utils/query-types.js'
@@ -69,18 +72,82 @@ const PurchaseLink = styled.a`
   }
 `
 
+const ResultRow = ({ result, onSaveTrack, onRejectTrack }) => (
+  <tr>
+    <TrackTitleCol>{result.query}</TrackTitleCol>
+    <Td>
+      {result.platform === Platform.YOUTUBE &&
+        (result.id ? (
+          <YouTube
+            videoId={result.id}
+            opts={{
+              width: 400,
+              height: 160,
+            }}
+          />
+        ) : (
+          <em>No result</em>
+        ))}
+    </Td>
+    <Td>
+      <PurchaseLink
+        target="_blank"
+        href={`https://bandcamp.com/search?q=${window.encodeURIComponent(
+          result.query
+        )}`}
+      >
+        Bandcamp
+      </PurchaseLink>
+
+      <PurchaseLink
+        target="_blank"
+        href={`https://www.junodownload.com/search/?${window.encodeURIComponent(
+          'q[all][]'
+        )}=${window.encodeURIComponent(result.query)}`}
+      >
+        Juno Download
+      </PurchaseLink>
+
+      <PurchaseLink
+        target="_blank"
+        href={`https://www.beatport.com/search?q=${window.encodeURIComponent(
+          result.query
+        )}`}
+      >
+        Beatport
+      </PurchaseLink>
+    </Td>
+
+    <Td>
+      <TrackStatusPicker trackId={result.id} />
+    </Td>
+
+    <Td>
+      <Button onClick={() => onSaveTrack(result)}>Save track</Button>
+      <Button onClick={() => onRejectTrack(result)}>Forget and move on</Button>
+    </Td>
+  </tr>
+)
+
 /**
  * Link List
  */
 class LinkList extends Component {
+  static propTypes = {
+    results: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+    tracks: PropTypes.shape({}).isRequired,
+    onFetchResults: PropTypes.func.isRequired,
+  }
+
   state = {
     query: '',
     isLoading: false,
-    results: [],
   }
 
   @autobind
   async handleQueryChange(query) {
+    const { onFetchResults } = this.props
+
     this.setState({
       query,
       isLoading: true,
@@ -103,14 +170,13 @@ class LinkList extends Component {
       })
     )
 
-    this.setState({
-      isLoading: false,
-      results,
-    })
+    this.setState({ isLoading: false })
+    onFetchResults(results)
   }
 
   render() {
-    const { query, isLoading, results } = this.state
+    const { results, tracks } = this.props
+    const { query, isLoading } = this.state
 
     return (
       <div className="LinkList">
@@ -143,71 +209,30 @@ class LinkList extends Component {
                   <Th>YouTube</Th>
                   <Th>Purchase</Th>
                   <Th>Status</Th>
+                  <Th>Actions</Th>
                 </tr>
               </thead>
 
               <tbody>
                 {results.length === 0 && (
                   <tr>
-                    <EmptyColumn colSpan="3">
+                    <EmptyColumn colSpan="4">
                       No results to show just now
                     </EmptyColumn>
                   </tr>
                 )}
 
-                {results.map(result => {
-                  return (
-                    <tr key={result.query}>
-                      <TrackTitleCol>{result.query}</TrackTitleCol>
-                      <Td>
-                        {result.platform === Platform.YOUTUBE &&
-                          (result.id ? (
-                            <YouTube
-                              videoId={result.id}
-                              opts={{
-                                width: 400,
-                                height: 160,
-                              }}
-                            />
-                          ) : (
-                            <em>No result</em>
-                          ))}
-                      </Td>
-                      <Td>
-                        <PurchaseLink
-                          target="_blank"
-                          href={`https://bandcamp.com/search?q=${window.encodeURIComponent(
-                            result.query
-                          )}`}
-                        >
-                          Bandcamp
-                        </PurchaseLink>
+                {results.map(result => (
+                  <ResultRow result={result} />
+                ))}
 
-                        <PurchaseLink
-                          target="_blank"
-                          href={`https://www.junodownload.com/search/?${window.encodeURIComponent(
-                            'q[all][]'
-                          )}=${window.encodeURIComponent(result.query)}`}
-                        >
-                          Juno Download
-                        </PurchaseLink>
+                <tr>
+                  <EmptyColumn colSpan="4">-----------------------</EmptyColumn>
+                </tr>
 
-                        <PurchaseLink
-                          target="_blank"
-                          href={`https://www.beatport.com/search?q=${window.encodeURIComponent(
-                            result.query
-                          )}`}
-                        >
-                          Beatport
-                        </PurchaseLink>
-                      </Td>
-
-                      <Td>
-                        <TrackStatusPicker trackId={result.id} />
-                      </Td>
-                    </tr>
-                  )
-                })}
+                {Object.values(tracks).map(track => (
+                  <ResultRow result={track} />
+                ))}
               </tbody>
             </TrackList>
           )}
@@ -217,4 +242,12 @@ class LinkList extends Component {
   }
 }
 
-export default LinkList
+export default connect(
+  state => ({
+    results: state.results,
+    tracks: state.tracks,
+  }),
+  dispatch => ({
+    onFetchResults: results => dispatch(setResults({ results })),
+  })
+)(LinkList)

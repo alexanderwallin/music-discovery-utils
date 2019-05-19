@@ -1,3 +1,4 @@
 export default {
+  SET_RESULTS: 'SET_RESULTS',
   SET_TRACK_STATUS: 'SET_TRACK_STATUS',
 }
